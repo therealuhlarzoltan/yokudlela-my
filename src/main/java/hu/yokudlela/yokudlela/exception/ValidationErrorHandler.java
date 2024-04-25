@@ -58,9 +58,8 @@ public class ValidationErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> HandleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
         log.error(ex.getLocalizedMessage(), ex);
        ApiException error = new ApiException(req.getRequestURI(),"error.validation");
-
-        for(String msg: ex.getMessage().split(",")){
-            error.getErrors().add(msg.split(":")[1]);
+        for(var msg: ex.getConstraintViolations()){
+            error.getErrors().add(msg.getMessage());
         }
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -74,7 +73,7 @@ public class ValidationErrorHandler extends ResponseEntityExceptionHandler {
         ApiException error = new ApiException(req.getRequestURI(),"error.validation");
 
         ex.getBindingResult().getAllErrors().forEach((ObjectError err) -> error.getErrors().add(
-                (err.getDefaultMessage().indexOf(' ')>0)?"error.validation.MethodArgumentNotValid":err.getDefaultMessage()));
+                (err.getDefaultMessage().indexOf(' ') > 0) ? "error.validation.MethodArgumentNotValid" : err.getDefaultMessage()));
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
@@ -86,7 +85,7 @@ public class ValidationErrorHandler extends ResponseEntityExceptionHandler {
         ApiException error = new ApiException(req.getRequestURI(),"error.validation");
 
         error.getErrors().add(
-                (ex.getLocalizedMessage().indexOf(' ')>0)?"error.validation.HttpMessageNotReadable":ex.getLocalizedMessage());
+                (ex.getLocalizedMessage().indexOf(' ') > 0)? "error.validation.HttpMessageNotReadable" : ex.getLocalizedMessage());
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }

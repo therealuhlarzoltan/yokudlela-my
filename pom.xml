@@ -54,22 +54,160 @@
 			<artifactId>modelmapper</artifactId>
 			<version>3.1.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>4.27.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
 	</dependencies>
 
+
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.3.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.11.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>21</source>
+					<target>21</target>
+					<enablePreview>true</enablePreview>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>edge-SNAPSHOT</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<mainClass>hu.yokudlela.yokudlela.YokudlelaApplication</mainClass>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
+
+			<!--<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.43.0</version>
+				<configuration>
+					<pushRegistry>docker.io</pushRegistry>
+					<authConfig>
+						<username>${env.DOCKER_USER}</username>
+						<password>${env.DOCKER_PASSWORD}</password>
+					</authConfig>
+					<images>
+						<image>
+							<name>krisztian4dsoft/yokudlela-spring3</name>
+							<build>
+								<dockerFileDir>${project.basedir}/src/main/resources/docker/</dockerFileDir>
+								<assembly>
+									<descriptorRef>artifact</descriptorRef>
+								</assembly>
+								<tags>
+									<tag>table-02-docker-liqui-psql</tag>
+								</tags>
+								<assembly>
+									<inline>
+										<files>
+											<file>
+												<source>${project.build.directory}/Yokudlela-01.jar</source>
+												<outputDirectory>./opt</outputDirectory>
+												<destName>table-spring.jar</destName>
+											</file>
+										</files>
+									</inline>
+								</assembly>
+							</build>
+						</image>
+					</images>
+					&lt;!&ndash;                    <authConfig>
+                                            <username>${env.DOCKERHUB_USER}</username>
+                                            <password>${env.DOCKERHUB_PASSWORD}</password>
+                                        </authConfig>
+                    &ndash;&gt;
+				</configuration>
+			</plugin>-->
+
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>4.23.0</version>
+				<configuration>
+					<propertyFile>src/main/resources/db/liquibase.properties</propertyFile>
+				</configuration>
+				<executions>
+					<execution>
+						<id>disable-run</id>
+						<phase>process-resources</phase>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+					<execution>
+						<id>disable-install</id>
+						<phase>install</phase>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+					<execution>
+						<id>disable-clean</id>
+						<phase>clean</phase>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+					<execution>
+						<id>disable-package</id>
+						<phase>package</phase>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+					<execution>
+						<id>create-schema</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>update</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>42.6.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
 		</plugins>
 	</build>
 

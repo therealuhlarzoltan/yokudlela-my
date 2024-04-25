@@ -39,7 +39,6 @@ public class TableController {
         return tableService.disable(pId.getId());
     }
 
-
     @DeleteMapping
     public void delete(TableIdRequest pdata){
         tableService.delete(pdata.getId());
@@ -49,6 +48,7 @@ public class TableController {
     public List<TableResponse> getNotUse(){
         return tableService.getNotAvailable();
     }
+
     @GetMapping("/usable")
     public List<TableResponse> getUse(){
         return tableService.getAvailable();

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="create-tables-table" author="Zoli">
+        <createTable tableName="tables">
+            <column name="id" type="bigint">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="is_available" type="boolean" defaultValueBoolean="true"/>
+            <column name="capacity" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-reservations-table" author="Zoli">
+        <createTable tableName="reservations">
+            <column name="id" type="varchar(255)">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="begintime" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="endtime" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="person" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-reservation-tables-table" author="Zoli">
+        <createTable tableName="reservation_tables">
+            <column name="reservation_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="table_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+  <!--  <changeSet id="create-orders-table" author="Zoli">
+        <createTable tableName="orders">
+            <column name="id" type="bigint">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="orders_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>-->
+
+    <changeSet id="add-foreign-key-constraints" author="Zoli">
+        <addForeignKeyConstraint baseTableName="reservation_tables"
+                                 baseColumnNames="reservation_id"
+                                 referencedTableName="reservations"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_reservation_tables_reservations"/>
+        <addForeignKeyConstraint baseTableName="reservation_tables"
+                                 baseColumnNames="table_id"
+                                 referencedTableName="tables"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_reservation_tables_tables"/>
+     <!--   <addForeignKeyConstraint baseTableName="orders"
+                                 baseColumnNames="orders_id"
+                                 referencedTableName="reservations"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_orders_reservations"/>-->
+    </changeSet>
+</databaseChangeLog>
