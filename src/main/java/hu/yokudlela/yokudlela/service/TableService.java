@@ -1,7 +1,7 @@
 package hu.yokudlela.yokudlela.service;
 
-import hu.yokudlela.yokudlela.domain.dto.TableRequest;
-import hu.yokudlela.yokudlela.domain.dto.TableResponse;
+import hu.yokudlela.yokudlela.domain.dto.table.TableRequest;
+import hu.yokudlela.yokudlela.domain.dto.table.TableResponse;
 import hu.yokudlela.yokudlela.domain.entity.Table;
 import hu.yokudlela.yokudlela.repository.TableRepository;
 import lombok.RequiredArgsConstructor;

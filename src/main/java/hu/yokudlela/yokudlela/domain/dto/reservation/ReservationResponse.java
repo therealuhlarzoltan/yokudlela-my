@@ -1,43 +1,41 @@
-package hu.yokudlela.yokudlela.domain.dto;
+package hu.yokudlela.yokudlela.domain.dto.reservation;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import hu.yokudlela.yokudlela.serializer.ContactSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ReservationRequest {
-    @NotEmpty(message = "error.reservation.name.notset")
-    @Size(max = 20, min = 3, message = "error.reservation.name.long")
+public class ReservationResponse {
+
+    private String id;
+
     private String name;
 
-    @NotEmpty(message = "error.reservation.name.notset")
+    @JsonSerialize(using = ContactSerializer.class)
     private String contact;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime begin;
 
-
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @Future(message = "error.reservation.end.past")
     private LocalDateTime end;
 
+    private List<String> tableNames;
 
-    @Min(value = 1, message = "error.reservation.person.few")
-    private byte person;
+    private byte people;
 }
+

@@ -1,4 +1,4 @@
-package hu.yokudlela.yokudlela.domain.dto;
+package hu.yokudlela.yokudlela.domain.dto.reservation;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

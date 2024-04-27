@@ -1,8 +1,8 @@
 package hu.yokudlela.yokudlela.service;
 
-import hu.yokudlela.yokudlela.domain.dto.ReservationIdResponse;
-import hu.yokudlela.yokudlela.domain.dto.ReservationRequest;
-import hu.yokudlela.yokudlela.domain.dto.ReservationResponse;
+import hu.yokudlela.yokudlela.domain.dto.reservation.ReservationIdResponse;
+import hu.yokudlela.yokudlela.domain.dto.reservation.ReservationRequest;
+import hu.yokudlela.yokudlela.domain.dto.reservation.ReservationResponse;
 import hu.yokudlela.yokudlela.domain.entity.Reservation;
 import hu.yokudlela.yokudlela.domain.entity.Table;
 import hu.yokudlela.yokudlela.exception.BusinessException;
@@ -11,7 +11,6 @@ import hu.yokudlela.yokudlela.repository.TableRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

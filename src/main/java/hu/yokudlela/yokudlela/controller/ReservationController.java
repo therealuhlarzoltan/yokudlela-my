@@ -1,6 +1,6 @@
 package hu.yokudlela.yokudlela.controller;
 
-import hu.yokudlela.yokudlela.domain.dto.*;
+import hu.yokudlela.yokudlela.domain.dto.reservation.*;
 import hu.yokudlela.yokudlela.service.ReservationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

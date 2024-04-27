@@ -1,4 +1,4 @@
-package hu.yokudlela.yokudlela.domain.dto;
+package hu.yokudlela.yokudlela.domain.dto.reservation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TableResponse {
-    private long id;
-    private String name;
-    private long capacity;
+public class ReservationIdRequest {
+    private String id;
 }

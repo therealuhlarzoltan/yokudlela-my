@@ -1,4 +1,4 @@
-FROM openjdk:21
+FROM openjdk:21-ea-10-slim-bullseye
 ENV LANG C.UTF-8
 
 RUN mkdir -p /opt

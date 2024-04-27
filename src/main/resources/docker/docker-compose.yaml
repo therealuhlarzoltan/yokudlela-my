@@ -1,14 +1,26 @@
 version: '3.8'
 services:
-  db:
-    image: postgres:14
+  spring-boot-table-app:
+    image: therealuhlarzoltan/yokudlela-spring3:latest
+    depends_on:
+      - postgres-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/yokudlela_table
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_USERNAME=yokudlela
+      - SPRING_DATASOURCE_PASSWORD=yokudlela
+      - SPRING_JPA_DATABASE-PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+    ports:
+      - '8080:8080'
+  postgres-db:
+    image: postgres:15
     environment:
       - POSTGRES_USER=yokudlela
       - POSTGRES_PASSWORD=yokudlela
-      - POSTGRES_DB=yokudlela
+      - POSTGRES_DB=yokudlela_table
     ports:
       - '5432:5432'
     restart: on-failure
     volumes:
       - ./psql-create-multiple-db.sql:/docker-entrypoint-initdb.d/1.sql
-      - ./sql-data:/var/lib/postgresql/data
+      - ./sql-data:/var /lib/postgresql/data

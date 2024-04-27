@@ -1,4 +1,4 @@
-package hu.yokudlela.yokudlela.domain.dto;
+package hu.yokudlela.yokudlela.domain.dto.table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
