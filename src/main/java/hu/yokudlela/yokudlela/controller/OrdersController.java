@@ -43,16 +43,10 @@ public class OrdersController {
         orderService.deleteOrderGroup(pdata.getOrderGroup());
     }
 
-    @Operation(summary = "Get Order", description = "Get order by id")
-    @GetMapping("/{id}")
-    public OrderResponse getOrder(@Valid @PathVariable String id) {
-        return orderService.getOrder(id);
-    }
-
     @Operation(summary = "Get OrderGroup", description = "Get orders in order group by order group id")
-    @GetMapping("/group/{id}")
-    public OrderGroupResponse getOrderGroup(@Valid @PathVariable String id) {
-        return orderService.getOrderGroup(id);
+    @PostMapping("/group")
+    public OrderGroupResponse getOrderGroup(@Valid @RequestBody OrderGroupRequest orderGroup) {
+        return orderService.getOrderGroup(orderGroup.getOrderGroup());
     }
 
 
@@ -64,13 +58,13 @@ public class OrdersController {
 
     @Operation(summary = "Pay for whole order group", description = "Pay all orders in the group")
     @PatchMapping("/group/pay")
-    public void payGroup(@Valid @RequestParam OrderGroupRequest pData){
+    public void payGroup(@Valid @RequestBody OrderGroupRequest pData){
         orderService.payGroup(pData.getOrderGroup());
     }
 
     @Operation(summary = "Pay for order", description = "Pay for a single order")
-    @GetMapping("/pay")
-    public void pay(@Valid @RequestParam OrderIdRequest data){
+    @PatchMapping("/pay")
+    public void pay(@Valid @RequestBody OrderIdRequest data){
         orderService.pay(data.getId());
     }
 

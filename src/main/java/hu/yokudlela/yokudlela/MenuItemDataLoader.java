@@ -28,5 +28,6 @@ public class MenuItemDataLoader implements CommandLineRunner {
                 MenuItem.builder().name("Dombolo").price(4890).build(),
                 MenuItem.builder().name("Isijingi").price(5660).build()
         );
+        menuItemRepository.saveAll(seed);
     }
 }

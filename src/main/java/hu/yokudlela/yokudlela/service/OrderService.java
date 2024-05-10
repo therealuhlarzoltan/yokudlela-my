@@ -34,13 +34,14 @@ public class OrderService {
     }
 
     public void delete(String id) {
-        orderRepository.deleteById(UUID.fromString(id));
+        orderRepository.deleteById(id);
     }
 
     public OrderGroupResponse getOrderGroup(String id) {
        var orders = orderRepository.findByOrderGroup(id);
        var mapped = orders.stream().map(o -> mapper.map(o, OrderResponse.class)).collect(Collectors.toList());
        return  OrderGroupResponse.builder()
+               .orderGroup(id)
                .orders(mapped)
                .totalPrice(orders.stream().mapToDouble(o -> o.getQuantity() * o.getMenuItem().getPrice()).sum())
                .build();
@@ -49,20 +50,15 @@ public class OrderService {
     public void deleteOrderGroup(String orderGroup) {
         var orders = orderRepository.findByOrderGroup(orderGroup);
         for (var e : orders)
-            orderRepository.deleteById(UUID.fromString(e.getId()));
+            orderRepository.deleteById(e.getId());
     }
 
-
-    public OrderResponse getOrder(String id) {
-        var e = orderRepository.findById(UUID.fromString(id)).get();
-        return  mapper.map(e, OrderResponse.class);
-    }
 
     public void updateState(OrderStateChangeRequest pdata) {
-        var opt = orderRepository.findById(UUID.fromString(pdata.getId()));
-        var entity = opt.get();
+        var opt = orderRepository.findById(pdata.getId());
         var strEnum = pdata.getOrderState();
-        entity.setOrderStatus(Arrays.stream(OrderState.values()).filter(e -> e.equals(strEnum)).findFirst().get());
+        var entity = opt.get();
+        entity.setOrderStatus(Arrays.stream(OrderState.values()).filter(e -> e.getName().equals(strEnum)).findFirst().get());
         orderRepository.save(entity);
     }
 
@@ -74,15 +70,15 @@ public class OrderService {
     }
 
     public void pay(String id) {
-        var opt = orderRepository.findById(UUID.fromString(id));
+        var opt = orderRepository.findById(id);
         var e = opt.get();
         e.setOrderStatus(OrderState.PAID);
         orderRepository.save(e);
     }
 
     public List<OrderResponse> getAll() {
-        var entites = new ArrayList<Order>();
-        orderRepository.findAll().forEach(entites::add);
-        return entites.stream().map(e -> mapper.map(e, OrderResponse.class)).collect(Collectors.toList());
+        var entities = new ArrayList<Order>();
+        orderRepository.findAll().forEach(entities::add);
+        return entities.stream().map(e -> mapper.map(e, OrderResponse.class)).collect(Collectors.toList());
     }
 }

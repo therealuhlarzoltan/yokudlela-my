@@ -15,5 +15,5 @@ public class OrderResponse {
     private String menuItem;
     private String table;
     private Integer quantity;
-    private Double price;
+    private String orderGroup;
 }

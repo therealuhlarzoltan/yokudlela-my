@@ -1,5 +1,6 @@
 package hu.yokudlela.yokudlela.domain.dto.order;
 
+import hu.yokudlela.yokudlela.domain.validation.order.OrderGroupExists;
 import hu.yokudlela.yokudlela.domain.validation.order.OrderStateExists;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class OrderGroupRequest {
-    @OrderStateExists(message = "error.ordergroup.notexists")
+    @OrderGroupExists(message = "error.ordergroup.notexists")
     private String orderGroup;
 }

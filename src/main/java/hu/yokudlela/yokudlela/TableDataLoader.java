@@ -1,5 +1,6 @@
 package hu.yokudlela.yokudlela;
 
+import hu.yokudlela.yokudlela.repository.MenuItemRepository;
 import hu.yokudlela.yokudlela.repository.TableRepository;
 import hu.yokudlela.yokudlela.domain.entity.Table;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.List;
 public class TableDataLoader implements CommandLineRunner {
     @Autowired
     TableRepository tableRepository;
+
     @Override
     public void run(String... args) throws Exception {
         if (tableRepository.count() != 0)

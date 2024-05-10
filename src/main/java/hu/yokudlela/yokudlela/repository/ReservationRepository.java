@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface ReservationRepository extends CrudRepository<Reservation, UUID> {
+public interface ReservationRepository extends CrudRepository<Reservation, String> {
     public List<Reservation> findByBeginBetweenOrEndBetween(LocalDateTime pBeginStart, LocalDateTime pBeginEnd, LocalDateTime pEndStart, LocalDateTime pEndEnd);
 }

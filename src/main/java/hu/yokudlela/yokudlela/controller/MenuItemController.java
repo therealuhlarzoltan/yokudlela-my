@@ -1,5 +1,6 @@
 package hu.yokudlela.yokudlela.controller;
 
+import hu.yokudlela.yokudlela.domain.dto.menuitem.MenuItemIdRequest;
 import hu.yokudlela.yokudlela.domain.dto.menuitem.MenuItemRequest;
 import hu.yokudlela.yokudlela.domain.dto.table.TableIdRequest;
 import hu.yokudlela.yokudlela.domain.dto.table.TableRequest;
@@ -22,13 +23,13 @@ import java.util.List;
 public class MenuItemController {
     private final MenuItemService menuItemService;
     @PostMapping
-    public void save(@Validated @RequestBody MenuItemRequest menuItemRequest){
+    public void save(@Valid @RequestBody MenuItemRequest menuItemRequest){
         menuItemService.create(menuItemRequest);
     }
 
     @DeleteMapping
-    public void delete(@RequestParam Long id){
-        menuItemService.delete(id);
+    public void delete(@Valid @RequestBody MenuItemIdRequest id) {
+        menuItemService.delete(id.getId());
     }
 
     @GetMapping

@@ -54,10 +54,10 @@ public class Order {
     private OrderState orderStatus;
 
     @NotNull(message = "error.order.menuitem.notset")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private MenuItem menuItem;
 
     @NotNull(message = "error.order.table.notset")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Table table;
 }

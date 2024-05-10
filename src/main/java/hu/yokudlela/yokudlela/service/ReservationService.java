@@ -80,11 +80,10 @@ public class ReservationService {
     private ReservationResponse saveReservation(ReservationRequest pData, List<Table> tableEntities) {
         Reservation entity = mapper.map(pData, Reservation.class);
         entity.setTables(tableEntities);
-        reservationRepository.save(entity);
         return mapper.map(reservationRepository.save(entity), ReservationResponse.class);
     }
 
     public void deleteById(String id) {
-        reservationRepository.deleteById(UUID.fromString(id));
+        reservationRepository.deleteById(id);
     }
 }

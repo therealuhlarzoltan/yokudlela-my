@@ -65,10 +65,11 @@ public class Reservation {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "reservation_tables",
-            joinColumns = @JoinColumn(name = "table_id"),
-            inverseJoinColumns = @JoinColumn(name = "reservation_id")
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "table_id")
     )
     private List<Table> tables = new ArrayList<>();
+
 
 
     @Min(value = 1, message = "error.reservation.person.few")

@@ -19,7 +19,7 @@ public class OrderStateExistsValidator implements ConstraintValidator<OrderState
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if(Arrays.stream(OrderState.values()).map(OrderState::name).anyMatch(s -> s.equals(value))){
+        if(Arrays.stream(OrderState.values()).map(OrderState::getName).anyMatch(s -> s.equals(value))){
             return true;
         }
         context

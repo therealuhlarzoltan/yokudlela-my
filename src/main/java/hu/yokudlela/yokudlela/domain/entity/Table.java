@@ -38,12 +38,11 @@ public class Table {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "reservation_tables",
-            joinColumns = @JoinColumn(name = "reservation_id"),
-            inverseJoinColumns = @JoinColumn(name = "table_id")
+            joinColumns = @JoinColumn(name = "table_id"),
+            inverseJoinColumns = @JoinColumn(name = "reservation_id")
     )
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orders_id", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "table")
     private List<Order> orders = new ArrayList<>();
 }

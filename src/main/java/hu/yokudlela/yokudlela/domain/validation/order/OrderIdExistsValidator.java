@@ -22,7 +22,10 @@ public class OrderIdExistsValidator implements ConstraintValidator<OrderIdExists
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if(this.orderRepository.existsById(UUID.fromString(value))){
+        if (value.contains("id,")) {
+            value = value.substring(value.indexOf("id") + 3);
+        }
+        if(this.orderRepository.existsById(value)){
             return true;
         }
         context

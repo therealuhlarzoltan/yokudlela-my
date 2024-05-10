@@ -36,6 +36,6 @@ public class ReservationResponse {
 
     private List<String> tableNames;
 
-    private byte people;
+    private byte person;
 }
 
