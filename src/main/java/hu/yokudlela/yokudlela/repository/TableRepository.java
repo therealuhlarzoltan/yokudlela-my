@@ -3,9 +3,11 @@ package hu.yokudlela.yokudlela.repository;
 import hu.yokudlela.yokudlela.domain.entity.Table;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface TableRepository extends CrudRepository<Table, Long> {
     public Table findByName(@Param(value = "name") String name);
 

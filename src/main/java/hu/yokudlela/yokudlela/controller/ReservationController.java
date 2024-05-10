@@ -18,7 +18,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @GetMapping(path = "/byTimeIntervall")
-    public List<ReservationResponse> get(@Valid TimeIntervalRequest pTime) {
+    public List<ReservationResponse> get(@Valid @RequestBody TimeIntervalRequest pTime) {
         return reservationService.findByBeginBetweenOrEndBetween(pTime.getBegin(),pTime.getEnd(),pTime.getBegin(),pTime.getEnd());
     }
 
@@ -28,7 +28,7 @@ public class ReservationController {
     }
 
     @DeleteMapping
-    public void delete(@Valid ReservationIdRequest pId){
+    public void delete(@Valid @RequestBody ReservationIdRequest pId){
         reservationService.deleteById(pId.getId());
     }
 

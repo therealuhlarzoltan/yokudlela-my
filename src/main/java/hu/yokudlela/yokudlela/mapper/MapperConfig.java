@@ -2,7 +2,6 @@ package hu.yokudlela.yokudlela.mapper;
 
 import hu.yokudlela.yokudlela.converter.TableNameConverter;
 import hu.yokudlela.yokudlela.domain.dto.menuitem.MenuItemRequest;
-import hu.yokudlela.yokudlela.domain.dto.reservation.ReservationRequest;
 import hu.yokudlela.yokudlela.domain.dto.reservation.ReservationResponse;
 import hu.yokudlela.yokudlela.domain.dto.table.TableResponse;
 import hu.yokudlela.yokudlela.domain.entity.MenuItem;
@@ -18,6 +17,7 @@ public class MapperConfig {
     @Bean
     public ModelMapper modelMapper(){
         ModelMapper mapper = new ModelMapper();
+        mapper.addConverter(new TableNameConverter());
         mapper.addConverter(new TableNameConverter());
         TypeMap<Reservation, ReservationResponse> propertyMapper = mapper.createTypeMap(Reservation.class, ReservationResponse.class);
         propertyMapper.addMapping(Reservation::getTables, ReservationResponse::setTableNames);

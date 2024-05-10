@@ -24,7 +24,7 @@ public class TableController {
 
     @Operation(summary = "Save Table", description = "Save table to database")
     @PostMapping
-    public void save(@RequestBody TableRequest table){
+    public void save(@Valid @RequestBody TableRequest table){
         tableService.save(table);
     }
 
@@ -44,7 +44,7 @@ public class TableController {
 
     @Operation(summary = "Delete Table", description = "Delete table from database")
     @DeleteMapping
-    public void delete(TableIdRequest pdata){
+    public void delete(@Valid @RequestBody TableIdRequest pdata){
         tableService.delete(pdata.getId());
     }
 

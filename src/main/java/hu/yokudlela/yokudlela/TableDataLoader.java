@@ -18,12 +18,12 @@ public class TableDataLoader implements CommandLineRunner {
             return;
 
         var seed = List.of(
-                Table.builder().name("Terasz 1").capacity(8).build(),
-                Table.builder().name("Terasz 2").capacity(6).build(),
-                Table.builder().name("Terasz 3").capacity(4).build(),
-                Table.builder().name("Beltér 1").capacity(4).build(),
-                Table.builder().name("Beltér 2").capacity(2).build(),
-                Table.builder().name("Beltér 3").capacity(4).build()
+                Table.builder().name("Terasz 1").capacity(8).isAvailable(true).build(),
+                Table.builder().name("Terasz 2").capacity(6).isAvailable(true).build(),
+                Table.builder().name("Terasz 3").capacity(4).isAvailable(true).build(),
+                Table.builder().name("Beltér 1").capacity(4).isAvailable(true).build(),
+                Table.builder().name("Beltér 2").capacity(2).isAvailable(true).build(),
+                Table.builder().name("Beltér 3").capacity(4).isAvailable(true).build()
         );
         tableRepository.saveAll(seed);
     }
